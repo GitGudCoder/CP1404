@@ -1,29 +1,32 @@
-"""This is an example of defining user functions.
-The inside functions are defined separately from the main to save more space"""
+"""This is an example of user defined functions.
+The inside functions are defined separately from the main to save more space and make the code easier to read"""
 
-#Define the function that changes password to *****s
-def get_password(psswrd):
-    password_length = len(psswrd)
-    #a global variable was needed to use variable in other function (return command did not work)
-    global hidden_password
-    hidden_password = "*" * (password_length)
-    #print("Password: {}".format(hidden_password))<-- print was commented out so that password can only be printed if passlen>=6
 
-#Defines the main function. In this case prompting the user for a password. The get_password function converts passord to stars and prints
-#The outer main funtion deals with the case of having less than 6 characters. It loops util the password length is >= 6
+def get_password():
+    """This function asks the user their password and returns the password"""
+    psswrd = input("Please enter your password: >")
+    return psswrd
+
+def asterisk_printer(psswrd):
+    """This function converts user password into asterisks and prints"""
+    hidden_password = "*" * len(psswrd)
+    print("Password: {}".format(hidden_password))
+    return
+
 def main():
-    password = input("Please enter your password: >>>")
-    get_password(password)
+    """Main function asks for password from user, checks that it meets a minimum length requirement,
+    then (if password is valid,) prints the password as asterisks
+    """
+    minimum_password_length = 10
+    password = get_password()
 
-    while len(hidden_password) <6 :
-        print("\nPassword must be at least 6 characters long")
-        password = input("Please enter your password: >>>")
-        get_password(password)
+    while len(password) < minimum_password_length :
+        print("\nPassword must be at least {} characters long".format(minimum_password_length))
+        password = get_password()
 
-    print("\nPassword: {}".format(hidden_password))
+    asterisk_printer(password)
+#^^^ None of the above code^^^ actually "runs", it is defined
 
-#^^^ None of the above code^^^ actually "runs", it is a local function reference for the code below.
-
-main() #<--- The whole code is placed inside of this nested main() function.
+main() #<--- The whole code is placed inside of this nested main() function. The code "runs" from here
 
 
